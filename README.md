@@ -34,9 +34,9 @@ array(
 
 ### Errors
 
-- AuthError - missing or invalid PARTNER_KEY.
-- InvalidParam - missing or invalid parameter (e.g.: email).
-- EmailExists - email is already taken.
+- `AuthError` - missing or invalid PARTNER_KEY.
+- `InvalidParam` - missing or invalid parameter (e.g.: email).
+- `EmailExists` - email is already taken.
 
 
 ## login
@@ -60,9 +60,9 @@ array(
 
 ### Errors
 
-- AuthError - missing or invalid PARTNER_KEY.
-- InvalidParam - missing or invalid parameter (e.g.: email is not valid, password is to short).
-- IdentityNotFound - account with this email not exists.
-- InvalidCredential - email exists, bad password is incorrect.
-- LoginFailure - something is bad with login.
+- `AuthError` - missing or invalid PARTNER_KEY.
+- `InvalidParam` - missing or invalid parameter (e.g.: email is not valid, password is to short).
+- `IdentityNotFound` - account with this email not exists.
+- `InvalidCredential` - email exists, bad password is incorrect.
+- `LoginFailure` - something is bad with login.
 
