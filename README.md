@@ -4,7 +4,7 @@
 
 - Before start using this API, you should get your `PARTNER_KEY`. 
 - Response is successfull if not contains `error` property in `$response` array.
-- The `error` is maschine-readable name of error, and `message` is human-readable description of error.
+- The `error` is machine-readable name of error, and `message` is human-readable description of error.
 
 ## create
 
@@ -15,7 +15,7 @@ $response = $api->create(array(
   'email' => 'LOGIN_EMAIL',       // required
   'password' => 'YOUR_PASSWORD',  // optional, min length 6 characters
   'name' => 'John Doe',           // optional
-  'lang' => 'en'                  // optional, lovercase; 2 characters 
+  'lang' => 'en'                  // optional, lowercase; 2 characters
 ));
 
 // print_r($response);  // success response
@@ -61,7 +61,7 @@ array(
 ### Errors
 
 - `AuthError` - missing or invalid PARTNER_KEY.
-- `InvalidParam` - missing or invalid parameter (e.g.: email is not valid, password is to short).
+- `InvalidParam` - missing or invalid parameter (e.g.: email is not valid, password is too short).
 - `IdentityNotFound` - account with this email not exists.
 - `InvalidCredential` - email exists, bad password is incorrect.
 - `LoginFailure` - something is bad with login.
