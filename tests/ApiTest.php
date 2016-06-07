@@ -1,7 +1,7 @@
 <?php
 namespace Smartsupp;
 
-use Smartsupp\Api\Api;
+use Smartsupp\Partner\Api;
 use ReflectionProperty;
 
 class ApiTest extends \PHPUnit_Framework_TestCase

@@ -1,5 +1,5 @@
 <?php
-namespace Smartsupp\Api;
+namespace Smartsupp\Partner\Api;
 
 use Exception;
 use Smartsupp\Request\CurlRequest;

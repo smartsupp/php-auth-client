@@ -22,9 +22,7 @@ class CurlRequest implements HttpRequest
      * @param string|null $url URL address to make call for
      */
     public function __construct($url = null) {
-        if ($url) {
-            $this->handle = $this->init($url);
-        }
+        $this->init($url);
     }
 
     /**
@@ -35,10 +33,6 @@ class CurlRequest implements HttpRequest
      */
     public function init($url = null) {
         $this->handle = curl_init($url);
-
-        if ($this->handle === false) {
-            throw new Exception('cURL failed to initialize.');
-        }
     }
 
     /**
@@ -63,11 +57,11 @@ class CurlRequest implements HttpRequest
     /**
      * Get array of information about last request.
      *
-     * @param string $name request handler
+     * @param int $opt options
      * @return array info array
      */
-    public function getInfo($name) {
-        return curl_getinfo($this->handle, $name);
+    public function getInfo($opt = 0) {
+        return curl_getinfo($this->handle, $opt);
     }
 
     /**

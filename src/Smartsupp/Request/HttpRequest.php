@@ -26,10 +26,10 @@ interface HttpRequest
     /**
      * Get request status info.
      *
-     * @param string $name request handler
+     * @param int $opt options
      * @return array status info array
      */
-    public function getInfo($name);
+    public function getInfo($opt = 0);
 
     /**
      * Close request connection.
