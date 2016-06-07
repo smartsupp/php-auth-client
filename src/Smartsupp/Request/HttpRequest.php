@@ -1,0 +1,40 @@
+<?php
+namespace Smartsupp\Request;
+
+/**
+ * Interface HttpRequest serves as base interface for concrete Request implementations.
+ *
+ * @package Smartsupp\Request
+ */
+interface HttpRequest
+{
+    /**
+     * Allows to set request options.
+     *
+     * @param string $name option name
+     * @param string $value option value
+     */
+    public function setOption($name, $value);
+
+    /**
+     * Execute request call.
+     *
+     * @return boolean execution status
+     */
+    public function execute();
+
+    /**
+     * Get request status info.
+     *
+     * @param string $name request handler
+     * @return array status info array
+     */
+    public function getInfo($name);
+
+    /**
+     * Close request connection.
+     *
+     * @return boolean close status
+     */
+    public function close();
+}
