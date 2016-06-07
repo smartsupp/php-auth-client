@@ -2,7 +2,7 @@
 namespace Smartsupp\Request;
 
 /**
- * Class CurlRequest implements basic functionality to handle CURL requests.
+ * Class CurlRequest implements basic functionality to handle cURL requests.
  * It is used to better mock this communication in PHPUnit tests.
  *
  * @package Smartsupp\Request
@@ -19,14 +19,30 @@ class CurlRequest implements HttpRequest
     /**
      * CurlRequest constructor.
      *
-     * @param $url URL address to make call for
+     * @param string|null $url URL address to make call for
      */
-    public function __construct($url) {
-        $this->handle = curl_init($url);
+    public function __construct($url = null) {
+        if ($url) {
+            $this->handle = $this->init($url);
+        }
     }
 
     /**
-     * Set CURL option with given value.
+     * Init cURL connection object.
+     *
+     * @param string|null $url
+     * @throws Exception
+     */
+    public function init($url = null) {
+        $this->handle = curl_init($url);
+
+        if ($this->handle === false) {
+            throw new Exception('cURL failed to initialize.');
+        }
+    }
+
+    /**
+     * Set cURL option with given value.
      *
      * @param string $name option name
      * @param string $value option value
@@ -36,7 +52,7 @@ class CurlRequest implements HttpRequest
     }
 
     /**
-     * Execute CURL request.
+     * Execute cURL request.
      *
      * @return boolean
      */
@@ -55,9 +71,20 @@ class CurlRequest implements HttpRequest
     }
 
     /**
-     * Close CURL handler connection.
+     * Close cURL handler connection.
      */
     public function close() {
         curl_close($this->handle);
+    }
+
+    /**
+     * Return last error message as string.
+     *
+     * @return string formatted error message
+     */
+    public function getLastErrorMessage()
+    {
+        $message = sprintf("cURL failed with error #%d: %s", curl_errno($this->handle), curl_error($this->handle));
+        return $message;
     }
 }

@@ -37,4 +37,11 @@ interface HttpRequest
      * @return boolean close status
      */
     public function close();
+
+    /**
+     * Get last error message as formated string.
+     *
+     * @return string formated error message
+     */
+    public function getLastErrorMessage();
 }
