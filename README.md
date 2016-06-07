@@ -1,3 +1,6 @@
+[![Build Status](https://travis-ci.org/smartsupp/php-partner-client.svg)](https://travis-ci.org/smartsupp/php-partner-client)
+[![Coverage Status](https://coveralls.io/repos/github/smartsupp/php-rest-client/badge.svg?branch=master)](https://coveralls.io/github/smartsupp/php-rest-client?branch=master)
+
 # php-partner-client
 
 ## Get started
