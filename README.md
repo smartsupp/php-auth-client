@@ -1,7 +1,7 @@
-[![Build Status](https://travis-ci.org/smartsupp/php-partner-client.svg)](https://travis-ci.org/smartsupp/php-partner-client)
-[![Coverage Status](https://coveralls.io/repos/github/smartsupp/php-rest-client/badge.svg?branch=master)](https://coveralls.io/github/smartsupp/php-rest-client?branch=master)
+[![Build Status](https://travis-ci.org/smartsupp/php-auth-client.svg)](https://travis-ci.org/smartsupp/php-auth-client)
+[![Coverage Status](https://coveralls.io/repos/github/smartsupp/php-auth-client/badge.svg?branch=master)](https://coveralls.io/github/smartsupp/php-auth-client?branch=master)
 
-# php-partner-client
+# php-auth-client
 
 ## Get started
 
