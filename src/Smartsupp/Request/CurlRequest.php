@@ -21,7 +21,8 @@ class CurlRequest implements HttpRequest
      *
      * @param string|null $url URL address to make call for
      */
-    public function __construct($url = null) {
+    public function __construct($url = null)
+    {
         $this->init($url);
     }
 
@@ -31,7 +32,8 @@ class CurlRequest implements HttpRequest
      * @param string|null $url
      * @throws Exception
      */
-    public function init($url = null) {
+    public function init($url = null)
+    {
         $this->handle = curl_init($url);
     }
 
@@ -41,7 +43,8 @@ class CurlRequest implements HttpRequest
      * @param string $name option name
      * @param string $value option value
      */
-    public function setOption($name, $value) {
+    public function setOption($name, $value)
+    {
         curl_setopt($this->handle, $name, $value);
     }
 
@@ -50,7 +53,8 @@ class CurlRequest implements HttpRequest
      *
      * @return boolean
      */
-    public function execute() {
+    public function execute()
+    {
         return curl_exec($this->handle);
     }
 
@@ -60,14 +64,16 @@ class CurlRequest implements HttpRequest
      * @param int $opt options
      * @return array info array
      */
-    public function getInfo($opt = 0) {
+    public function getInfo($opt = 0)
+    {
         return curl_getinfo($this->handle, $opt);
     }
 
     /**
      * Close cURL handler connection.
      */
-    public function close() {
+    public function close()
+    {
         curl_close($this->handle);
     }
 

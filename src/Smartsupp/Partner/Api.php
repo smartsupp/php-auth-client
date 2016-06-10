@@ -1,18 +1,9 @@
 <?php
-namespace Smartsupp\Partner\Api;
+namespace Smartsupp\Partner;
 
 use Exception;
 use Smartsupp\Request\CurlRequest;
 use Smartsupp\Request\HttpRequest;
-
-// @codeCoverageIgnoreStart
-if (!function_exists('curl_init')) {
-    throw new Exception('Smartsupp API client needs the CURL PHP extension.');
-}
-if (!function_exists('json_decode')) {
-    throw new Exception('Smartsupp API client needs the JSON PHP extension.');
-}
-// @codeCoverageIgnoreEnd
 
 /**
  * Class to communicate with Smartsupp partner API.
@@ -42,9 +33,21 @@ class Api
     /**
      * Api constructor.
      *
-     * @param HttpRequest $handle inject custom request handle to better unit test
+     * @param null|HttpRequest $handle inject custom request handle to better unit test
+     * @throws Exception
      */
-    public function __construct(HttpRequest $handle) {
+    public function __construct(HttpRequest $handle = null)
+    {
+
+// @codeCoverageIgnoreStart
+        if (!function_exists('curl_init')) {
+            throw new Exception('Smartsupp API client needs the CURL PHP extension.');
+        }
+        if (!function_exists('json_decode')) {
+            throw new Exception('Smartsupp API client needs the JSON PHP extension.');
+        }
+// @codeCoverageIgnoreEnd
+
         $this->handle = $handle ?: new CurlRequest();
     }
 
@@ -78,7 +81,8 @@ class Api
      * @return array|string array data or json encoded string of result
      * @throws Exception
      */
-    private function post($path, $data) {
+    private function post($path, $data)
+    {
         return $this->run($path, 'post', $data);
     }
 
@@ -93,18 +97,19 @@ class Api
      * @return string|array JSON data or array containing decoded JSON data
      * @throws Exception
      */
-    private function run($path, $method, $data = NULL, $json_decode = true) {
+    private function run($path, $method, $data = null, $json_decode = true)
+    {
         $this->handle->setOption(CURLOPT_URL, self::API_BASE_URL . $path);
-        $this->handle->setOption(CURLOPT_RETURNTRANSFER, TRUE);
-        $this->handle->setOption(CURLOPT_FAILONERROR, FALSE);
-        $this->handle->setOption(CURLOPT_SSL_VERIFYPEER, TRUE);
+        $this->handle->setOption(CURLOPT_RETURNTRANSFER, true);
+        $this->handle->setOption(CURLOPT_FAILONERROR, false);
+        $this->handle->setOption(CURLOPT_SSL_VERIFYPEER, true);
         $this->handle->setOption(CURLOPT_SSL_VERIFYHOST, 2);
         $this->handle->setOption(CURLOPT_USERAGENT, 'cURL:php-partner-client');
         $this->handle->setOption(CURLOPT_HTTPHEADER, array('Content-Type: application/json'));
 
         switch ($method) {
             case 'post':
-                $this->handle->setOption(CURLOPT_POST, TRUE);
+                $this->handle->setOption(CURLOPT_POST, true);
                 $this->handle->setOption(CURLOPT_POSTFIELDS, json_encode($data));
                 break;
             case 'put':

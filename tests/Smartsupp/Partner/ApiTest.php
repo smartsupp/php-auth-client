@@ -1,7 +1,6 @@
 <?php
-namespace Smartsupp;
+namespace Smartsupp\Partner;
 
-use Smartsupp\Partner\Api;
 use ReflectionProperty;
 
 class ApiTest extends \PHPUnit_Framework_TestCase
@@ -34,5 +33,11 @@ class ApiTest extends \PHPUnit_Framework_TestCase
         $refId->setAccessible(false);
 
         return $value;
+    }
+
+    public function test_constructor()
+    {
+        $api = new Api();
+        $this->assertNotNull($api);
     }
 }
