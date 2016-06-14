@@ -105,38 +105,22 @@ class Api
         $this->handle->setOption(CURLOPT_SSL_VERIFYPEER, true);
         $this->handle->setOption(CURLOPT_SSL_VERIFYHOST, 2);
         $this->handle->setOption(CURLOPT_USERAGENT, 'cURL:php-partner-client');
-        $this->handle->setOption(CURLOPT_HTTPHEADER, array('Content-Type: application/json'));
 
         switch ($method) {
             case 'post':
                 $this->handle->setOption(CURLOPT_POST, true);
-                $this->handle->setOption(CURLOPT_POSTFIELDS, json_encode($data));
-                break;
-            case 'put':
-                $this->handle->setOption(CURLOPT_CUSTOMREQUEST, "PUT");
-                $this->handle->setOption(CURLOPT_POSTFIELDS, json_encode($data));
-                break;
-            case 'patch':
-                $this->handle->setOption(CURLOPT_CUSTOMREQUEST, "PATCH");
-                $this->handle->setOption(CURLOPT_POSTFIELDS, json_encode($data));
-                break;
-            case 'delete':
-                $this->handle->setOption(CURLOPT_CUSTOMREQUEST, "DELETE");
+                $this->handle->setOption(CURLOPT_POSTFIELDS, $data);
                 break;
         }
 
         $response = $this->handle->execute();
-        $info = $this->handle->getInfo();
 
         if ($response === false) {
             throw new Exception($this->handle->getLastErrorMessage());
         }
 
-        if ($info['http_code'] != 200) {
-            throw new Exception($response, $info['http_code']);
-        }
         $this->handle->close();
 
-        return $json_decode ? json_decode($response) : $response;
+        return $json_decode ? (array) json_decode($response) : $response;
     }
 }

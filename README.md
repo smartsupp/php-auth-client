@@ -15,9 +15,10 @@
 $api = new Smartsupp\Partner\Api(PARTNER_KEY);
 
 $response = $api->create(array(
+  'key' => 'PARTNER_API_KEY',     // optional
   'email' => 'LOGIN_EMAIL',       // required
   'password' => 'YOUR_PASSWORD',  // optional, min length 6 characters
-  'name' => 'John Doe',           // optional
+  'name' => 'John Doe',           // required
   'lang' => 'en'                  // optional, lowercase; 2 characters
 ));
 
