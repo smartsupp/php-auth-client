@@ -5,40 +5,46 @@
 
 ## Get started
 
-- Before start using this API, you should get your `PARTNER_KEY`. 
 - Response is successfull if not contains `error` property in `$response` array.
 - The `error` is machine-readable name of error, and `message` is human-readable description of error.
 
 ## create
 
 ```php
-$api = new Smartsupp\Partner\Api(PARTNER_KEY);
+$api = new Smartsupp\Auth\Api();
 
 $response = $api->create(array(
-  'key' => 'PARTNER_API_KEY',     // optional
-  'email' => 'LOGIN_EMAIL',       // required
-  'password' => 'YOUR_PASSWORD',  // optional, min length 6 characters
-  'name' => 'John Doe',           // required
-  'lang' => 'en'                  // optional, lowercase; 2 characters
+  'email' => 'LOGIN_EMAIL',           // required
+  'password' => 'YOUR_PASSWORD',      // optional, min length 6 characters
+  'name' => 'John Doe',               // optional
+  'lang' => 'en',                     // optional, lowercase; 2 characters
+  'partnerKey' => 'PARTNER_API_KEY'   // optional
 ));
 
 // print_r($response);  // success response
 array(
   'account' => array(
-	  'key' => 'CHAT_KEY',
-	  'lang' => 'en'
+    'key' => 'CHAT_KEY',
+    'lang' => 'en'
   ),
   'user' => array(
-	  'email' => 'LOGIN_EMAIL',
-	  'name' => 'John Doe',
-	  'password' => 'YOUR_PASSWORD'
+    'email' => 'LOGIN_EMAIL',
+    'name' => 'John Doe',
+    'password' => 'YOUR_PASSWORD'
   )
+);
+
+// print_r($response); // failure response
+array(
+    'error' => 'EmailExists',
+    'message' => 'Email already exists',
+    'hint' => 'email'
 );
 ```
 
 ### Errors
 
-- `AuthError` - missing or invalid PARTNER_KEY.
+- `AuthError` - invalid PARTNER_KEY.
 - `InvalidParam` - missing or invalid parameter (e.g.: email).
 - `EmailExists` - email is already taken.
 
@@ -46,7 +52,7 @@ array(
 ## login
 
 ```php
-$api = new Smartsupp\Partner\Api(PARTNER_KEY);
+$api = new Smartsupp\Auth\Api();
 
 $response = $api->login(array(
   'email' => 'LOGIN_EMAIL',
@@ -56,15 +62,21 @@ $response = $api->login(array(
 // print_r($response);  // success response
 array(
   'account' => array(
-	  'key' => 'CHAT_KEY',
-	  'lang' => 'en'
+    'key' => 'CHAT_KEY',
+    'lang' => 'en'
   )
+);
+
+// print_r($response); // failure response
+array(
+  'error' => 'InvalidCredential',
+  'message' => 'Invalid password'
 );
 ```
 
 ### Errors
 
-- `AuthError` - missing or invalid PARTNER_KEY.
+- `AuthError` - invalid PARTNER_KEY.
 - `InvalidParam` - missing or invalid parameter (e.g.: email is not valid, password is too short).
 - `IdentityNotFound` - account with this email not exists.
 - `InvalidCredential` - email exists, bad password is incorrect.
