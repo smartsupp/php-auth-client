@@ -38,7 +38,6 @@ class Api
      */
     public function __construct(HttpRequest $handle = null)
     {
-
 // @codeCoverageIgnoreStart
         if (!function_exists('curl_init')) {
             throw new Exception('Smartsupp API client needs the CURL PHP extension.');
@@ -121,6 +120,6 @@ class Api
 
         $this->handle->close();
 
-        return $json_decode ? (array) json_decode($response) : $response;
+        return $json_decode ? json_decode($response, true) : $response;
     }
 }
