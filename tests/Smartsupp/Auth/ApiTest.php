@@ -1,7 +1,6 @@
 <?php
-namespace Smartsupp\Partner;
+namespace Smartsupp\Auth;
 
-use ReflectionProperty;
 use Exception;
 
 class ApiTest extends \PHPUnit_Framework_TestCase
@@ -26,7 +25,7 @@ class ApiTest extends \PHPUnit_Framework_TestCase
             )
         );
 
-        $http = $this->getMock('Smartsupp\Request\HttpRequest');
+        $http = $this->getMock('Smartsupp\Auth\Request\HttpRequest');
         $http->expects($this->any())
             ->method('execute')
             ->will($this->returnValue(json_encode($response)));
@@ -47,7 +46,7 @@ class ApiTest extends \PHPUnit_Framework_TestCase
             'password' => 'xxx'
         );
 
-        $http = $this->getMock('Smartsupp\Request\HttpRequest');
+        $http = $this->getMock('Smartsupp\Auth\Request\HttpRequest');
         $http->expects($this->any())
             ->method('execute')
             ->will($this->returnValue(false));
@@ -83,7 +82,7 @@ class ApiTest extends \PHPUnit_Framework_TestCase
             )
         );
 
-        $http = $this->getMock('Smartsupp\Request\HttpRequest');
+        $http = $this->getMock('Smartsupp\Auth\Request\HttpRequest');
         $http->expects($this->any())
             ->method('execute')
             ->will($this->returnValue(json_encode($response)));

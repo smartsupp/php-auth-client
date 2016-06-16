@@ -1,9 +1,9 @@
 <?php
-namespace Smartsupp\Partner;
+namespace Smartsupp\Auth;
 
 use Exception;
-use Smartsupp\Request\CurlRequest;
-use Smartsupp\Request\HttpRequest;
+use Smartsupp\Auth\Request\CurlRequest;
+use Smartsupp\Auth\Request\HttpRequest;
 
 /**
  * Class to communicate with Smartsupp partner API.

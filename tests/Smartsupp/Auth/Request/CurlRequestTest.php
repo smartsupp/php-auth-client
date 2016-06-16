@@ -1,5 +1,5 @@
 <?php
-namespace Smartsupp\Request;
+namespace Smartsupp\Auth\Request;
 
 class CurlRequestTest extends \PHPUnit_Framework_TestCase
 {
@@ -19,14 +19,14 @@ class CurlRequestTest extends \PHPUnit_Framework_TestCase
     {
         $this->curl = new CurlRequest();
 
-        $this->assertInstanceOf('Smartsupp\Request\CurlRequest', $this->curl);
+        $this->assertInstanceOf('Smartsupp\Auth\Request\CurlRequest', $this->curl);
     }
 
     public function test_constructorUrl()
     {
         $this->curl = new CurlRequest('https://smartsupp.com');
 
-        $this->assertInstanceOf('Smartsupp\Request\CurlRequest', $this->curl);
+        $this->assertInstanceOf('Smartsupp\Auth\Request\CurlRequest', $this->curl);
     }
 
     public function test_initError()

@@ -1,5 +1,5 @@
 <?php
-namespace Smartsupp\Request;
+namespace Smartsupp\Auth\Request;
 
 /**
  * Class CurlRequest implements basic functionality to handle cURL requests.

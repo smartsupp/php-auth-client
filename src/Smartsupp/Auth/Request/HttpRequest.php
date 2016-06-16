@@ -1,5 +1,5 @@
 <?php
-namespace Smartsupp\Request;
+namespace Smartsupp\Auth\Request;
 
 /**
  * Interface HttpRequest serves as base interface for concrete Request implementations.
