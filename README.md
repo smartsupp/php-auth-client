@@ -1,7 +1,9 @@
 [![Build Status](https://travis-ci.org/smartsupp/php-auth-client.svg)](https://travis-ci.org/smartsupp/php-auth-client)
 [![Coverage Status](https://coveralls.io/repos/github/smartsupp/php-auth-client/badge.svg?branch=master)](https://coveralls.io/github/smartsupp/php-auth-client?branch=master)
 
-# php-auth-client
+# Smartsupp Authentication API PHP client
+
+* https://www.smartsupp.com/
 
 ## Get started
 
@@ -82,3 +84,6 @@ array(
 - `InvalidCredential` - email exists, bad password is incorrect.
 - `LoginFailure` - something is bad with login.
 
+## Copyright
+
+Copyright (c) 2016 Smartsupp.com, s.r.o.
