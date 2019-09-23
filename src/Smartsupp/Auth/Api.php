@@ -98,12 +98,15 @@ class Api
      */
     private function run($path, $method, $data = null, $json_decode = true)
     {
+        $ip = $this->getUserIpAddr();
+
         $this->handle->setOption(CURLOPT_URL, self::API_BASE_URL . $path);
         $this->handle->setOption(CURLOPT_RETURNTRANSFER, true);
         $this->handle->setOption(CURLOPT_FAILONERROR, false);
         $this->handle->setOption(CURLOPT_SSL_VERIFYPEER, true);
         $this->handle->setOption(CURLOPT_SSL_VERIFYHOST, 2);
         $this->handle->setOption(CURLOPT_USERAGENT, 'cURL:php-partner-client');
+        $this->handle->setOption(CURLOPT_HTTPHEADER, array('X-Forwarded-For' => $ip));
 
         switch ($method) {
             case 'post':
@@ -121,5 +124,23 @@ class Api
         $this->handle->close();
 
         return $json_decode ? json_decode($response, true) : $response;
+    }
+
+    /**
+     * Return user IP address.
+     *
+     * @return string|null
+     */
+    function getUserIpAddr(){
+        if(!empty($_SERVER['HTTP_CLIENT_IP'])) {
+            // ip from share internet
+            return $_SERVER['HTTP_CLIENT_IP'];
+        } elseif(!empty($_SERVER['HTTP_X_FORWARDED_FOR'])) {
+            // ip pass from proxy
+            return $_SERVER['HTTP_X_FORWARDED_FOR'];
+        } else {
+            // in case is not set - may be in CLI
+            return isset($_SERVER['REMOTE_ADDR']) ? $_SERVER['REMOTE_ADDR'] : null;
+        }
     }
 }
