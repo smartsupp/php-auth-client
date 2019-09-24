@@ -98,15 +98,19 @@ class Api
      */
     private function run($path, $method, $data = null, $json_decode = true)
     {
-        $ip = $this->getUserIpAddr();
-
         $this->handle->setOption(CURLOPT_URL, self::API_BASE_URL . $path);
         $this->handle->setOption(CURLOPT_RETURNTRANSFER, true);
         $this->handle->setOption(CURLOPT_FAILONERROR, false);
         $this->handle->setOption(CURLOPT_SSL_VERIFYPEER, true);
         $this->handle->setOption(CURLOPT_SSL_VERIFYHOST, 2);
         $this->handle->setOption(CURLOPT_USERAGENT, 'cURL:php-partner-client');
-        $this->handle->setOption(CURLOPT_HTTPHEADER, array('X-Forwarded-For' => $ip));
+
+        // forward headers from request
+        $headers = array(
+            'X-Forwarded-For' => $this->getUserIpAddr(),
+            'Accept-Language' => $this->getAcceptLanguage(),
+        );
+        $this->handle->setOption(CURLOPT_HTTPHEADER, $headers);
 
         switch ($method) {
             case 'post':
@@ -143,5 +147,15 @@ class Api
             // in case is not set - may be in CLI
             return isset($_SERVER['REMOTE_ADDR']) ? $_SERVER['REMOTE_ADDR'] : null;
         }
+    }
+
+    /**
+     * Get Accept-Language header.
+     *
+     * @return string|null
+     */
+    private function getAcceptLanguage()
+    {
+        return isset($_SERVER['HTTP_ACCEPT_LANGUAGE']) ? $_SERVER['HTTP_ACCEPT_LANGUAGE'] : null;
     }
 }
