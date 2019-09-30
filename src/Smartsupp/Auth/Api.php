@@ -110,7 +110,6 @@ class Api
             'X-Forwarded-For: ' . $this->getUserIpAddr(),
             'Accept-Language: ' . $this->getAcceptLanguage(),
         );
-        $this->handle->setOption(CURLOPT_HEADER, true);
         $this->handle->setOption(CURLOPT_HTTPHEADER, $headers);
 
         switch ($method) {
