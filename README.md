@@ -85,8 +85,17 @@ array(
 - `LoginFailure` - something is bad with login.
 
 ## Requirements
+
+### 1.x
 For backward compatibility with multiple plugins library supports PHP starting from version 5.3. It is highly possibly the constraint will change to 5.6+ in near future.
+
+### 2.x
+Minimum required PHP version is 7.3.
+
+Theoretically this is only required by phpunit 9 which is used for tests.
+In theory the library code should still work with PHP versions down to 5.3,
+but tests for these versions are no longer available.
 
 ## Copyright
 
-Copyright (c) 2016 Smartsupp.com, s.r.o.
+Copyright (c) 2016-2020 Smartsupp.com, s.r.o.

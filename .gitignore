@@ -3,3 +3,4 @@
 composer.lock
 /build/
 test.php
+.phpunit.result.cache

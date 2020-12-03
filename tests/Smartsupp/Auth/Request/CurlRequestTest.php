@@ -1,14 +1,16 @@
 <?php
 namespace Smartsupp\Auth\Request;
 
-class CurlRequestTest extends \PHPUnit_Framework_TestCase
+use PHPUnit\Framework\TestCase;
+
+class CurlRequestTest extends TestCase
 {
     /**
      * @var CurlRequest
      */
     protected $curl;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         parent::setUp();
 
@@ -19,50 +21,47 @@ class CurlRequestTest extends \PHPUnit_Framework_TestCase
     {
         $this->curl = new CurlRequest();
 
-        $this->assertInstanceOf('Smartsupp\Auth\Request\CurlRequest', $this->curl);
+        self::assertInstanceOf('Smartsupp\Auth\Request\CurlRequest', $this->curl);
     }
 
     public function test_constructorUrl()
     {
         $this->curl = new CurlRequest('https://smartsupp.com');
 
-        $this->assertInstanceOf('Smartsupp\Auth\Request\CurlRequest', $this->curl);
-    }
-
-    public function test_initError()
-    {
-        $this->curl->init('https://smartsupp.com');
+        self::assertInstanceOf('Smartsupp\Auth\Request\CurlRequest', $this->curl);
     }
 
     public function test_setOption()
     {
-        $this->curl->setOption(CURLOPT_HEADER, 0);
-    }
-
-    /**
-     * @expectedExceptionMessage curl_setopt() expects parameter 1 to be resource, null given
-     */
-    public function test_setOption_notInitialized()
-    {
-        $this->curl->setOption(CURLOPT_HEADER, 0);
+        try {
+            $this->curl->setOption(CURLOPT_HEADER, 0);
+            self::assertTrue(true);
+        } catch (\Throwable $e) {
+            self::assertTrue(false);
+        }
     }
 
     public function test_close()
     {
-        $this->curl->close();
+        try {
+            $this->curl->close();
+            self::assertTrue(true);
+        } catch (\Throwable $e) {
+            self::assertTrue(false);
+        }
     }
 
     public function test_execute()
     {
         $this->curl->setOption(CURLOPT_RETURNTRANSFER, TRUE);
-        $this->assertNotEmpty($this->curl->execute());
+        self::assertNotEmpty($this->curl->execute());
     }
 
     public function test_getInfo()
     {
         $this->curl->setOption(CURLOPT_RETURNTRANSFER, TRUE);
         $this->curl->execute();
-        $this->assertEquals($this->curl->getInfo(CURLINFO_HTTP_CODE), 200);
+        self::assertEquals(200, $this->curl->getInfo(CURLINFO_HTTP_CODE));
     }
 
     public function test_getLastErrorMessage()
@@ -70,6 +69,6 @@ class CurlRequestTest extends \PHPUnit_Framework_TestCase
         $this->curl->setOption(CURLOPT_URL, 'foo://bar');
         $this->curl->setOption(CURLOPT_RETURNTRANSFER, TRUE);
         $this->curl->execute();
-        $this->assertNotEmpty($this->curl->getLastErrorMessage());
+        self::assertNotEmpty($this->curl->getLastErrorMessage());
     }
 }

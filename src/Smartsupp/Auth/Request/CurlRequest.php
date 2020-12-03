@@ -30,7 +30,7 @@ class CurlRequest implements HttpRequest
      * Init cURL connection object.
      *
      * @param string|null $url
-     * @throws Exception
+     * @throws \Exception
      */
     public function init($url = null)
     {
@@ -45,6 +45,9 @@ class CurlRequest implements HttpRequest
      */
     public function setOption($name, $value)
     {
+        if (!$this->handle) {
+            throw new \Exception('curl not initialized');
+        }
         curl_setopt($this->handle, $name, $value);
     }
 
