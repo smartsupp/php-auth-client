@@ -19,7 +19,7 @@ use Smartsupp\Auth\Request\HttpRequest;
 class Api
 {
     /** API call base URL */
-    const API_BASE_URL = 'https://www.smartsupp.com/';
+    const API_BASE_URL = 'https://app.smartsupp.com/';
 
     /** URL paths for all used resources endpoints methods */
     const URL_LOGIN = 'account/login',
