@@ -31,12 +31,18 @@ class Api
     private $handle = null;
 
     /**
+     * @var string
+     */
+    private $baseUrl;
+
+    /**
      * Api constructor.
      *
      * @param null|HttpRequest $handle inject custom request handle to better unit test
+     * @param string|null $baseUrl URL of the smartsupp server, production server is used if no url provided.
      * @throws Exception
      */
-    public function __construct(HttpRequest $handle = null)
+    public function __construct(HttpRequest $handle = null, $baseUrl = null)
     {
 // @codeCoverageIgnoreStart
         if (!function_exists('curl_init')) {
@@ -48,6 +54,7 @@ class Api
 // @codeCoverageIgnoreEnd
 
         $this->handle = $handle ?: new CurlRequest();
+        $this->baseUrl = rtrim($baseUrl ?: self::API_BASE_URL, '/');
     }
 
     /**
@@ -98,7 +105,7 @@ class Api
      */
     private function run($path, $method, $data = null, $json_decode = true)
     {
-        $this->handle->setOption(CURLOPT_URL, self::API_BASE_URL . $path);
+        $this->handle->setOption(CURLOPT_URL, $this->baseUrl . '/' . \ltrim($path, '/'));
         $this->handle->setOption(CURLOPT_RETURNTRANSFER, true);
         $this->handle->setOption(CURLOPT_FAILONERROR, false);
         $this->handle->setOption(CURLOPT_SSL_VERIFYPEER, true);
