@@ -2,16 +2,18 @@
 namespace Smartsupp\Auth;
 
 use Exception;
+use PHPUnit\Framework\TestCase;
+use Smartsupp\Auth\Request\HttpRequest;
 
-class ApiTest extends \PHPUnit_Framework_TestCase
+class ApiTest extends TestCase
 {
-    public function test_constructor()
+    public function test_constructor(): void
     {
         $api = new Api();
         $this->assertNotNull($api);
     }
 
-    public function test_login()
+    public function test_login(): void
     {
         $data = array(
             'email' => 'test5@kurzor.net',
@@ -25,49 +27,46 @@ class ApiTest extends \PHPUnit_Framework_TestCase
             )
         );
 
-        $http = $this->getMock('Smartsupp\Auth\Request\HttpRequest');
+        $http = $this->createMock(HttpRequest::class);
         $http->expects($this->any())
             ->method('execute')
-            ->will($this->returnValue(json_encode($response)));
+            ->willReturn(json_encode($response));
 
-        // create class under test using $http instead of a real CurlRequest
         $api = new Api($http);
         $this->assertEquals($response, $api->login($data));
     }
 
-    /**
-     * @expectedException Exception
-     * @expectedExceptionMessage Foo is at bar!
-     */
-    public function test_response_error()
+    public function test_response_error(): void
     {
+        $this->expectException(Exception::class);
+        $this->expectExceptionMessage('Foo is at bar!');
+
         $data = array(
             'email' => 'test5@kurzor.net',
             'password' => 'xxx'
         );
 
-        $http = $this->getMock('Smartsupp\Auth\Request\HttpRequest');
+        $http = $this->createMock(HttpRequest::class);
         $http->expects($this->any())
             ->method('execute')
-            ->will($this->returnValue(false));
+            ->willReturn(false);
 
         $http->expects($this->any())
             ->method('getLastErrorMessage')
-            ->will($this->returnValue('Foo is at bar!'));
+            ->willReturn('Foo is at bar!');
 
-        // create class under test using $http instead of a real CurlRequest
         $api = new Api($http);
         $api->login($data);
     }
 
-    public function test_create()
+    public function test_create(): void
     {
         $data = array(
-            'email' => 'LOGIN_EMAIL',           // required
-            'password' => 'YOUR_PASSWORD',      // optional, min length 6 characters
-            'name' => 'John Doe',               // optional
-            'lang' => 'en',                     // optional, lowercase; 2 characters
-            'partnerKey' => 'PARTNER_API_KEY'   // optional
+            'email' => 'LOGIN_EMAIL',
+            'password' => 'YOUR_PASSWORD',
+            'name' => 'John Doe',
+            'lang' => 'en',
+            'partnerKey' => 'PARTNER_API_KEY'
         );
 
         $response = array(
@@ -82,12 +81,11 @@ class ApiTest extends \PHPUnit_Framework_TestCase
             )
         );
 
-        $http = $this->getMock('Smartsupp\Auth\Request\HttpRequest');
+        $http = $this->createMock(HttpRequest::class);
         $http->expects($this->any())
             ->method('execute')
-            ->will($this->returnValue(json_encode($response)));
+            ->willReturn(json_encode($response));
 
-        // create class under test using $http instead of a real CurlRequest
         $api = new Api($http);
         $this->assertEquals($response, $api->create($data));
     }

@@ -36,7 +36,7 @@ class Api
      * @param null|HttpRequest $handle inject custom request handle to better unit test
      * @throws Exception
      */
-    public function __construct(HttpRequest $handle = null)
+    public function __construct(?HttpRequest $handle = null)
     {
 // @codeCoverageIgnoreStart
         if (!function_exists('curl_init')) {
